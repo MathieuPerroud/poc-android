@@ -1,0 +1,72 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
+}
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "org.diiage.poc"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
+        buildConfigField 'String', 'API_STARWARS', '"https://swapi.dev/api/"'
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    kotlinOptions { jvmTarget = "1.8" }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation deps.kotlin.stdlib
+
+    implementation deps.androidx.ktx
+    implementation deps.androidx.appcompat
+    implementation deps.androidx.constraintlayout
+    implementation deps.androidx.paging.runtime
+    implementation deps.androidx.paging.common
+    implementation deps.androidx.navigation.fragment
+    implementation deps.androidx.navigation.ui
+    implementation deps.androidx.lifecycle.livedata
+    implementation deps.androidx.lifecycle.viewmodel
+    implementation deps.androidx.room.runtime
+    kapt deps.androidx.room.compiler
+    implementation deps.androidx.room.ktx
+    testImplementation deps.androidx.room.testing
+
+    implementation deps.google.material
+    implementation deps.google.dagger.hilt.android
+    kapt deps.google.dagger.hilt.compiler
+
+    implementation deps.coroutines.android
+
+    implementation deps.androidx.hilt.lifecycle
+    kapt deps.androidx.hilt.compiler
+
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+
+    testImplementation 'junit:junit:4.13.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+}
